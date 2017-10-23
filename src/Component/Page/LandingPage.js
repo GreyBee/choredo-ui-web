@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
+import { GoogleLogin } from 'react-google-login';
 
 class LandingPage extends Component {
+
+    responseGoogle = (response) => {
+        localStorage.setItem('cd-user-name', response.profileObj.givenName +" " + response.profileObj.familyName);
+        localStorage.setItem('cd-user-email', response.profileObj.email);
+        localStorage.setItem('cd-user-token', response.accessToken);
+    };
+
     render() {
         return (
             <div id="page-wrapper">
@@ -13,7 +21,13 @@ class LandingPage extends Component {
                                 <p>Help your kids with their chores and teach them about money at the same time</p>
                             </header>
                             <ul className="actions">
-                                <li><a href="#" className="button big">Sign Up With <i className="icon fa-google"/></a></li>
+                                <GoogleLogin
+                                    clientId="529228870641-cd4pl87aele5ctibr8p9fvj8mmmdtta2.apps.googleusercontent.com"
+                                    onSuccess={this.responseGoogle}
+                                    onFailure={this.responseGoogle}
+                                    buttonText={"Login with Google"}
+                                    className="button big"
+                                />
                             </ul>
                         </section>
 
@@ -49,11 +63,6 @@ class LandingPage extends Component {
                                     </section>
                                 </div>
                             </div>
-                            <footer>
-                                <ul className="actions">
-                                    <li><a href="#" className="button big">Get Started</a></li>
-                                </ul>
-                            </footer>
                         </section>
 
                     </div>
