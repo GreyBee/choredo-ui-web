@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import ChoreBoardApp from './App';
+import ChoreDoApp from './ChoreDoApp';
 import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render(<ChoreBoardApp />, document.getElementById('root'));
+ReactDOM.render(<ChoreDoApp />, document.getElementById('root'));
 registerServiceWorker();

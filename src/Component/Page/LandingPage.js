@@ -1,18 +1,36 @@
 import React, { Component } from 'react';
 import { GoogleLogin } from 'react-google-login';
+import axios from 'axios';
+
 
 class LandingPage extends Component {
 
     responseGoogle = (response) => {
-        localStorage.setItem('cd-user-name', response.profileObj.givenName +" " + response.profileObj.familyName);
-        localStorage.setItem('cd-user-email', response.profileObj.email);
-        localStorage.setItem('cd-user-token', response.accessToken);
+
+        let data = {
+            'data' : {
+                "firstName" : response.profileObj.givenName,
+                "lastName" : response.profileObj.familyName,
+                "emailAddress": response.profileObj.email,
+                "token": response.accessToken,
+                "avatarUri": response.profileObj.imageUrl
+            }
+        };
+
+        axios.post('http://localhost:8080/auth', data)
+            .then(function (response) {
+                console.log(response);
+            }).catch(function (response) {
+            console.log(response);
+        });
+
+        console.log(response.profileObj);
     };
 
     render() {
         return (
             <div id="page-wrapper">
-
+                <link rel="stylesheet" href="assets/css/main.css"/>
                 <div id="header-wrapper">
                     <div id="header">
                         <section id="banner">
