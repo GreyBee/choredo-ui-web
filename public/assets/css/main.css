@@ -1069,7 +1069,7 @@
 /* Basic */
 
 	body {
-		background: rgba(34, 30, 31, 0.98);
+		background: white;
 		background-image: url("images/bg02.png");
 		font-family: 'Source Sans Pro';
 		font-weight: 300;
@@ -1121,7 +1121,7 @@
 	}
 
 	h1, h2, h3, h4, h5, h6 {
-		color: #FF5B5B;
+		color: #5F00BA;
 		font-weight: 700;
 	}
 
@@ -1663,11 +1663,11 @@
 	}
 
 		#banner header {
-			background-color: #404040;
+			background-color: white;
 		}
 
 			#banner header h2 {
-				color: #fff;
+				color: #5F00BA;
 				font-weight: 700;
 			}
 
@@ -1709,7 +1709,8 @@
 
 	#footer-wrapper {
 		position: relative;
-		color: #858484;
+		color: white;
+		background: #5F00BA
 	}
 
 		#footer-wrapper:before {
@@ -1756,7 +1757,7 @@
 		#copyright .links {
 			border-radius: 5px;
 			margin: 0;
-			font-size:12px;
+			font-size:14px;
 		}
 
 /* Desktop */
