@@ -1,29 +1,42 @@
 import React, {Component} from 'react';
 import LandingPage from './Component/Page/LandingPage';
 import Dashboard from './Component/Page/Dashboard';
-import {BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
+import SetupFamily from './Component/Onboarding/OnboardingModal';
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
+import {deepOrangeA400, deepPurple600} from 'material-ui/styles/colors';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 
 class ChoreDoApp extends Component {
 
     render() {
 
-        let loggedIn = localStorage.getItem('cd-user-name')
-            && localStorage.getItem('cd-user-email')
-            && localStorage.getItem('cd-user-token');
+        let loggedIn = false;
+
+        const muiTheme = getMuiTheme({
+            palette: {
+                primary1Color: deepPurple600,
+                accent1Color: deepOrangeA400,
+            },
+        });
 
         return (
-            <div>
+            <MuiThemeProvider muiTheme={muiTheme}>
                 <Router>
-                <Route exact path="/" render={() => (
-                    loggedIn ? (
-                        <Dashboard/>
-                    ) : (
-                        <LandingPage/>
-                    )
-                )}/>
+                    <Switch>
+                        <Route exact path="/" render={() => (
+                            loggedIn ? (
+                                <Dashboard/>
+                            ) : (
+                                <LandingPage/>
+                            )
+                        )}/>
+                        <Route path="/signup" component={SetupFamily}/>
+                        <Route path="/dashboard" component={Dashboard}/>
+                    </Switch>
                 </Router>
-            </div>
+            </MuiThemeProvider>
         );
     }
 }

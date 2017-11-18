@@ -1,38 +1,26 @@
 import React, { Component } from 'react';
-import {Header, Anchor, Title, Box, Search, Menu} from 'grommet';
-
-
+import AppBar from 'material-ui/AppBar';
 class Dashboard extends Component {
+
     render() {
+
+        function handleTouchTap() {
+            alert('onClick triggered on the title component');
+        }
+
+        const styles = {
+            title: {
+                cursor: 'pointer',
+            },
+        };
+
         return (
-                <Header>
-                    <Title>
-                        Sample Title
-                    </Title>
-                    <Box flex={true}
-                         justify='end'
-                         direction='row'
-                         responsive={false}>
-                        <Search inline={true}
-                                fill={true}
-                                size='medium'
-                                placeHolder='Search'
-                                dropAlign={{"right": "right"}} />
-                        <Menu
-                              dropAlign={{"right": "right"}}>
-                            <Anchor href='#'
-                                    className='active'>
-                                First
-                            </Anchor>
-                            <Anchor href='#'>
-                                Second
-                            </Anchor>
-                            <Anchor href='#'>
-                                Third
-                            </Anchor>
-                        </Menu>
-                    </Box>
-                </Header>
+            <div id="page-wrapper">
+                <AppBar
+                    title={<span style={styles.title}>ChoreDo</span>}
+                    iconElementLeft=""
+                />
+            </div>
         );
     }
 }

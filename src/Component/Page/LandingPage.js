@@ -1,16 +1,31 @@
-import React, { Component } from 'react';
-import { GoogleLogin } from 'react-google-login';
+import React, {Component} from 'react';
+import {GoogleLogin} from 'react-google-login';
+import {withRouter} from 'react-router'
 import axios from 'axios';
+import SetupFamily from '../Onboarding/OnboardingModal'
+import ActionFavorite from 'material-ui/svg-icons/action/favorite';
+import {deepOrangeA400} from 'material-ui/styles/colors';
 
 
 class LandingPage extends Component {
 
-    responseGoogle = (response) => {
+    state = {
+        open: true,
+    };
 
+    handleOpen = () => {
+        this.setState({open: true});
+    };
+
+    handleClose = () => {
+        this.setState({open: false});
+    };
+
+    handleGoogleResponse = (response) => {
         let data = {
-            'data' : {
-                "firstName" : response.profileObj.givenName,
-                "lastName" : response.profileObj.familyName,
+            'data': {
+                "firstName": response.profileObj.givenName,
+                "lastName": response.profileObj.familyName,
                 "emailAddress": response.profileObj.email,
                 "token": response.accessToken,
                 "avatarUri": response.profileObj.imageUrl
@@ -18,18 +33,19 @@ class LandingPage extends Component {
         };
 
         axios.post('http://localhost:8080/auth', data)
-            .then(function (response) {
+            .then((response) =>  {
                 console.log(response);
-            }).catch(function (response) {
-            console.log(response);
+            }).catch((error)  => {
+            if (error.response.status === 404) {
+                this.handleOpen();
+            }
         });
-
-        console.log(response.profileObj);
     };
 
     render() {
         return (
             <div id="page-wrapper">
+                <SetupFamily open={this.state.open} handleClose={this.handleClose}/>
                 <link rel="stylesheet" href="assets/css/main.css"/>
                 <div id="header-wrapper">
                     <div id="header">
@@ -41,10 +57,10 @@ class LandingPage extends Component {
                             <ul className="actions">
                                 <GoogleLogin
                                     clientId="529228870641-cd4pl87aele5ctibr8p9fvj8mmmdtta2.apps.googleusercontent.com"
-                                    onSuccess={this.responseGoogle}
-                                    onFailure={this.responseGoogle}
+                                    onSuccess={this.handleGoogleResponse}
+                                    onFailure={this.handleGoogleResponse}
                                     buttonText={"Login with Google"}
-                                    className="button big"
+                                    className="button big login-btn"
                                 />
                             </ul>
                         </section>
@@ -68,7 +84,8 @@ class LandingPage extends Component {
                                         <header>
                                             <h2>Tracking</h2>
                                         </header>
-                                        <p>Nisl amet dolor sit ipsum veroeros sed blandit consequat veroeros et magna tempus.</p>
+                                        <p>Nisl amet dolor sit ipsum veroeros sed blandit consequat veroeros et magna
+                                            tempus.</p>
                                     </section>
                                 </div>
                                 <div className="4u 12u(mobile)">
@@ -77,7 +94,8 @@ class LandingPage extends Component {
                                         <header>
                                             <h2>Financial Responsibility</h2>
                                         </header>
-                                        <p>Nisl amet dolor sit ipsum veroeros sed blandit consequat veroeros et magna tempus.</p>
+                                        <p>Nisl amet dolor sit ipsum veroeros sed blandit consequat veroeros et magna
+                                            tempus.</p>
                                     </section>
                                 </div>
                             </div>
@@ -92,7 +110,10 @@ class LandingPage extends Component {
                             <div className="12u">
                                 <div id="copyright">
                                     <ul className="links">
-                                        <li>&copy; 2017 ChoreBoard. All rights reserved.</li><li>Landing Page Designed By: <a href="http://html5up.net">HTML5 UP</a></li>
+                                        <li>&copy; 2017 ChoreDo. All rights reserved.</li>
+                                        <li>Landing Page Designed By: <a href="http://html5up.net">HTML5 UP</a></li>
+                                        <li>Made with <ActionFavorite
+                                            style={{color:deepOrangeA400}}/> in Brooklyn</li>
                                     </ul>
                                 </div>
 
@@ -100,11 +121,9 @@ class LandingPage extends Component {
                         </div>
                     </section>
                 </div>
-
             </div>
-
         );
     }
 }
 
-export default LandingPage ;
+export default withRouter(LandingPage);
