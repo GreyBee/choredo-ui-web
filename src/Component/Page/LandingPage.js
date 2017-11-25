@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import {GoogleLogin} from 'react-google-login';
 import {withRouter} from 'react-router'
-import axios from 'axios';
-import SetupFamily from '../Onboarding/OnboardingModal'
+import OnboardingModal from '../Onboarding/OnboardingModal'
 import ActionFavorite from 'material-ui/svg-icons/action/favorite';
 import {deepOrangeA400} from 'material-ui/styles/colors';
 
@@ -10,7 +9,8 @@ import {deepOrangeA400} from 'material-ui/styles/colors';
 class LandingPage extends Component {
 
     state = {
-        open: true,
+        open: false,
+        user: {}
     };
 
     handleOpen = () => {
@@ -22,30 +22,27 @@ class LandingPage extends Component {
     };
 
     handleGoogleResponse = (response) => {
-        let data = {
-            'data': {
-                "firstName": response.profileObj.givenName,
-                "lastName": response.profileObj.familyName,
-                "emailAddress": response.profileObj.email,
-                "token": response.accessToken,
-                "avatarUri": response.profileObj.imageUrl
-            }
+        const user = {
+            "firstName": response.profileObj.givenName,
+            "lastName": response.profileObj.familyName,
+            "emailAddress": response.profileObj.email,
+            "token": response.accessToken,
+            "avatarUri": response.profileObj.imageUrl
         };
-
-        axios.post('http://localhost:8080/auth', data)
-            .then((response) =>  {
-                console.log(response);
-            }).catch((error)  => {
-            if (error.response.status === 404) {
-                this.handleOpen();
+        this.setState(
+            {
+                ...this.state,
+                user: user
             }
-        });
+        );
+
+        this.handleOpen();
     };
 
     render() {
         return (
             <div id="page-wrapper">
-                <SetupFamily open={this.state.open} handleClose={this.handleClose}/>
+                <OnboardingModal open={this.state.open} handleClose={this.handleClose} user={this.state.user}/>
                 <link rel="stylesheet" href="assets/css/main.css"/>
                 <div id="header-wrapper">
                     <div id="header">
@@ -113,7 +110,8 @@ class LandingPage extends Component {
                                         <li>&copy; 2017 ChoreDo. All rights reserved.</li>
                                         <li>Landing Page Designed By: <a href="http://html5up.net">HTML5 UP</a></li>
                                         <li>Made with <ActionFavorite
-                                            style={{color:deepOrangeA400}}/> in Brooklyn</li>
+                                            style={{color: deepOrangeA400}}/> in Brooklyn
+                                        </li>
                                     </ul>
                                 </div>
 

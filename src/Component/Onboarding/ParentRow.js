@@ -4,7 +4,9 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 import TextField from 'material-ui/TextField';
 
 export default ({parent, index, handleChange, handleAddRow}) => {
-    let addBtn = (index === 0) ? <IconButton onClick={handleAddRow}>
+    let addBtn = (index === 0) ? <IconButton
+        onClick={handleAddRow}
+    >
         <ContentAdd/>
     </IconButton> : null;
     return (

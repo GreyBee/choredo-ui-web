@@ -1,7 +1,10 @@
 import React from 'react';
 import ParentRow from './ParentRow';
+import TextField from 'material-ui/TextField';
+import {deepPurple600} from 'material-ui/styles/colors';
 
-export default ({parents, handleChange, addRow}) => {
+
+export default ({user, parents, handleChange, addRow}) => {
 
     const buildParentRows = (parents) => {
         return parents.map((element, index) => {
@@ -22,7 +25,27 @@ export default ({parents, handleChange, addRow}) => {
                         We'll send them an invite so they can help manage your chore board.
                     </span>
             <br/>
+            <br/>
             <div>
+                <div>
+                    <TextField
+                        floatingLabelText="Parent's Name"
+                        style={{width: '40%'}}
+                        inputStyle={{color:deepPurple600}}
+                        value={user.firstName + ' ' + user.lastName}
+                        underlineShow={false}
+                        disabled={true}
+                    />
+                    <span style={{width: "10%", display: 'inline-block'}}/>
+                    <TextField
+                        floatingLabelText="Email"
+                        style={{width: '40%'}}
+                        inputStyle={{color:deepPurple600}}
+                        value={user.emailAddress}
+                        underlineShow={false}
+                        disabled={true}
+                    />
+                </div>
                 {buildParentRows(parents)}
             </div>
         </div>

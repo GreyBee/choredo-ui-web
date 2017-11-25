@@ -2,53 +2,73 @@ import React from 'react';
 import ActionFavorite from 'material-ui/svg-icons/action/favorite';
 import InfoIcon from 'material-ui/svg-icons/action/info-outline';
 import ActionFavoriteBorder from 'material-ui/svg-icons/action/favorite-border';
-import Tooltip from 'material-ui/internal/Tooltip';
 import Slider from 'material-ui/Slider';
 import TextField from 'material-ui/TextField';
 import IconButton from 'material-ui/IconButton';
+import Avatar from 'material-ui/Avatar';
+import {deepOrangeA400, deepPurple600} from 'material-ui/styles/colors';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 
 export default class SetupFamily extends React.Component {
 
-    state = {
-        paymentStrategyToolTip: false,
-        completionThresholdToolTip: false
-    };
-
-    showTooltipPaymentStrategyTooltip = () => {
-        this.setState(prevState => {
-            return {
-                ...prevState,
-                paymentStrategyToolTip: !prevState.paymentStrategyToolTip
-            };
-        });
-    };
-
     render() {
+        const avatar = (label, color) => {
+            return <Avatar backgroundColor={color}>{label}</Avatar>
+        };
+
+        const dayOfWeekIcon = (value) => {
+            const avatarValue = value.charAt(0).toUpperCase();
+            return <RadioButton
+                value={value}
+                checkedIcon={avatar(
+                    avatarValue,
+                    deepOrangeA400
+                )}
+                uncheckedIcon={avatar(
+                    avatarValue,
+                    deepPurple600
+                )}
+                style={{marginBottom: 16, width: "7%", display: "inline-block"}}
+            />
+        };
         return (
             <div>
                 <h3>Setup Family </h3>
                 <span>Give your family a name, and some intial configuration </span>
 
-                <label style={{marginTop: 16}}>Family Name</label>
-                <TextField
-                    hintText="The Danger Daniels"
-                    name="familyName"
-                    onChange={this.props.handleChange}
-                    value={this.props.familyName}
-                />
+                <div width={'50%'}>
+                    <label style={{marginTop: 16}}>Family Name</label>
+                    <TextField
+                        hintText="The Danger Daniels"
+                        name="familyName"
+                        onChange={this.props.handleChange}
+                        value={this.props.familyName}
+                    />
+                </div>
+                <div width={'50%'}>
+                    <label style={{marginTop: 16}}>
+                        Week Start Date
+                    </label>
+                    <RadioButtonGroup name="weekStartDay"
+                                      defaultSelected={this.props.weekStartDay}
+                                      onChange={this.props.handleChange}
+                    >
+                        {dayOfWeekIcon('sunday')}
+                        {dayOfWeekIcon('monday')}
+                        {dayOfWeekIcon('tuesday')}
+                        {dayOfWeekIcon('wednesday')}
+                        {dayOfWeekIcon('thursday')}
+                        {dayOfWeekIcon('friday')}
+                        {dayOfWeekIcon('saturday')}
+                    </RadioButtonGroup>
+                </div>
                 <label style={{marginTop: 16}}>
                     Payment Strategy
-                    <IconButton onClick={this.showTooltipPaymentStrategyTooltip}
-                                style={{color: "gray", veritcalAlign: "middle", width: 20, height: 20}}
+                    <IconButton
+                        tooltip={<span>How would you like allowance calculated?</span>}
+                        tooltipStyles={{fontSize: 14}}
                     >
                         <InfoIcon/>
-                        <Tooltip
-                            show={this.state.paymentStrategyToolTip}
-                            label="How would you like allowance calculated?"
-                            style={{fontSize: '14pt'}}
-                            horizontalPosition='right'
-                            verticalPosition='top'/>
                     </IconButton>
                 </label>
                 <RadioButtonGroup
@@ -57,14 +77,14 @@ export default class SetupFamily extends React.Component {
                     onChange={this.props.handleChange}
                 >
                     <RadioButton
-                        value="perChild"
+                        value="per_child"
                         label="Per Child"
                         checkedIcon={<ActionFavorite/>}
                         uncheckedIcon={<ActionFavoriteBorder/>}
                         style={{marginBottom: 16, width: "50%", display: "inline-block"}}
                     />
                     <RadioButton
-                        value="perChore"
+                        value="per_chore"
                         label="Per Chore"
                         checkedIcon={<ActionFavorite/>}
                         uncheckedIcon={<ActionFavoriteBorder/>}
@@ -73,23 +93,9 @@ export default class SetupFamily extends React.Component {
                 </RadioButtonGroup>
                 <label>
                     Completion Threshold:
-                    <IconButton onClick={() => {
-                        this.setState(prevState => {
-                            return {
-                                ...prevState,
-                                completionThresholdToolTip: !prevState.completionThresholdToolTip
-                            };
-                        });
-                    }}
-                                style={{color: "gray", veritcalAlign: "middle", width: 20, height: 20}}
-                    >
+                    <IconButton
+                        tooltip={<span>What percentage of chores need to be completed to earn allowance?</span>}>
                         <InfoIcon/>
-                        <Tooltip
-                            show={this.state.completionThresholdToolTip}
-                            label="What percentage of chores need to be completed to earn allowance?"
-                            style={{fontSize: '14pt'}}
-                            horizontalPosition='right'
-                            verticalPosition='top'/>
                     </IconButton>
 
 
