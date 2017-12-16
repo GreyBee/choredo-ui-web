@@ -31,7 +31,9 @@ export default class ColorPickerButton extends React.Component {
     }
 
     componentWillMount(){
-        this.props.onChange(this.props.index, this.state.color)
+        if (this.props.child.color == undefined){
+            this.props.onChange(this.props.index, this.state.color)
+        }
     }
 
     handleClick = (event) => {
@@ -52,7 +54,8 @@ export default class ColorPickerButton extends React.Component {
 
     handleChangeComplete = (color, event) => {
         this.setState({color: color.hex});
-        this.props.onChange(this.props.index, this.state.color)
+        this.props.onChange(this.props.index, this.state.color);
+        this.handleRequestClose();
     };
 
     render() {
