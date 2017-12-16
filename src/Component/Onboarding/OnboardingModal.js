@@ -25,7 +25,8 @@ export default class OnboardingModal extends React.Component {
         ],
         children: [
             {
-                'name': undefined
+                'name': undefined,
+                'color': undefined
             }
         ]
     };
@@ -123,7 +124,8 @@ export default class OnboardingModal extends React.Component {
                         id: 'new ' + index,
                         type: 'children',
                         attributes: {
-                            name: child.name
+                            name: child.name,
+                            color: child.color
                         }
 
                     }
@@ -174,6 +176,17 @@ export default class OnboardingModal extends React.Component {
         })
     };
 
+    handleChildColorChange = (index, value) => {
+        this.setState((prevState) => {
+            const newChildren = prevState.children.slice();
+            newChildren[index].color = value;
+            return {
+                ...prevState,
+                children: newChildren
+            };
+        })
+    };
+
     addParentRow = () => {
         this.setState(prevState => {
             const newParents = prevState.parents.slice();
@@ -192,7 +205,8 @@ export default class OnboardingModal extends React.Component {
         this.setState(prevState => {
             const newChildren = prevState.children.slice();
             newChildren.push({
-                'name': undefined
+                'name': undefined,
+                'color': undefined
             });
 
             return {
@@ -227,6 +241,7 @@ export default class OnboardingModal extends React.Component {
                 return <SetupChildren
                     children={this.state.children}
                     handleChange={this.handleChildChange}
+                    handleColorChange={this.handleChildColorChange}
                     addRow={this.addChildRow}
                 />
         }

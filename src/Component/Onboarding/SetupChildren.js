@@ -1,7 +1,7 @@
 import React from 'react';
 import ChildRow from './ChildRow';
 
-export default ({children, handleChange, addRow}) => {
+export default ({children, handleChange, handleColorChange, addRow}) => {
 
     const buildChildRows = (children) => {
         return children.map((element, index) => {
@@ -11,6 +11,7 @@ export default ({children, handleChange, addRow}) => {
                 index={index}
                 handleChange={handleChange}
                 handleAddRow={addRow}
+                handleColorChange={handleColorChange}
             />;
         })
     };
