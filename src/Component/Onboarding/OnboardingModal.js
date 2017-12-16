@@ -10,25 +10,41 @@ import axios from 'axios';
 
 export default class OnboardingModal extends React.Component {
 
-    state = {
-        finished: false,
-        stepIndex: 0,
-        familyName: undefined,
-        paymentStrategy: 'perChild',
-        completionThreshold: 0,
-        weekStartDay: 'sunday',
-        parents: [
-            {
-                'email': undefined,
-                'name': undefined
-            }
-        ],
-        children: [
-            {
-                'name': undefined,
-                'color': undefined
-            }
-        ]
+    constructor(props) {
+        super(props);
+
+        this.state = this.getDefaultState();
+    };
+
+    getDefaultState = () => {
+
+        const defaultState = {
+            finished: false,
+            stepIndex: 0,
+            familyName: undefined,
+            paymentStrategy: 'perChild',
+            completionThreshold: 0,
+            weekStartDay: 'sunday',
+            parents: [
+                {
+                    'email': undefined,
+                    'name': undefined
+                }
+            ],
+            children: [
+                {
+                    'name': undefined,
+                    'color': undefined
+                }
+            ]
+        };
+
+        return Object.assign({}, defaultState);
+    };
+
+    handleClose = (e) => {
+        this.setState({...this.getDefaultState()});
+        this.props.handleClose(e)
     };
 
     handleNext = () => {
@@ -139,8 +155,7 @@ export default class OnboardingModal extends React.Component {
                 console.log(response);
             });
         this.props.handleClose();
-    }
-    ;
+    };
 
     handleChange = (event) => {
         event.persist();
@@ -216,6 +231,13 @@ export default class OnboardingModal extends React.Component {
         })
     };
 
+    handlePrev = () => {
+        const {stepIndex} = this.state;
+        if (stepIndex > 0) {
+            this.setState({stepIndex: stepIndex - 1});
+        }
+    };
+
     getStepContent(stepIndex) {
         switch (stepIndex) {
             case 0:
@@ -245,14 +267,6 @@ export default class OnboardingModal extends React.Component {
                     addRow={this.addChildRow}
                 />
         }
-    }
-    ;
-
-    handlePrev = () => {
-        const {stepIndex} = this.state;
-        if (stepIndex > 0) {
-            this.setState({stepIndex: stepIndex - 1});
-        }
     };
 
     render() {
@@ -260,7 +274,9 @@ export default class OnboardingModal extends React.Component {
             <FlatButton
                 label="Cancel"
                 primary={true}
-                onClick={this.props.handleClose}
+                onClick={(e) => {
+                    this.handleClose(e)
+                }}
             />,
             <FlatButton
                 label="Back"

@@ -77,14 +77,14 @@ export default class SetupFamily extends React.Component {
                     onChange={this.props.handleChange}
                 >
                     <RadioButton
-                        value="per_child"
+                        value="perChild"
                         label="Per Child"
                         checkedIcon={<ActionFavorite/>}
                         uncheckedIcon={<ActionFavoriteBorder/>}
                         style={{marginBottom: 16, width: "50%", display: "inline-block"}}
                     />
                     <RadioButton
-                        value="per_chore"
+                        value="perChore"
                         label="Per Chore"
                         checkedIcon={<ActionFavorite/>}
                         uncheckedIcon={<ActionFavoriteBorder/>}
