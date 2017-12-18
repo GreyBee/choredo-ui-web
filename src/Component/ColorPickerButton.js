@@ -31,7 +31,7 @@ export default class ColorPickerButton extends React.Component {
     }
 
     componentWillMount(){
-        if (this.props.child.color == undefined){
+        if (this.props.child.color === undefined){
             this.props.onChange(this.props.index, this.state.color)
         }
     }
@@ -63,9 +63,9 @@ export default class ColorPickerButton extends React.Component {
             <span>
                 <IconButton
                     onClick={this.handleClick}
-                    iconStyle={{color: this.state.color}}
+                    iconStyle={this.props.iconStyle || {color: this.state.color}}
                 >
-                    <ColorIcon/>
+                    {this.props.icon || <ColorIcon/>}
                 </IconButton>
                 <Popover
                     open={this.state.open}
