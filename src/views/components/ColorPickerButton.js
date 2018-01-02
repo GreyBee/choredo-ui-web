@@ -26,12 +26,12 @@ export default class ColorPickerButton extends React.Component {
 
         this.state = {
             open: false,
-            color: this.props.child.color || _.sample(colors)
+            color: this.props.color || _.sample(colors)
         }
     }
 
     componentWillMount(){
-        if (this.props.child.color === undefined){
+        if (this.props.color === undefined){
             this.props.onChange(this.props.index, this.state.color)
         }
     }
@@ -63,7 +63,7 @@ export default class ColorPickerButton extends React.Component {
             <span>
                 <IconButton
                     onClick={this.handleClick}
-                    iconStyle={this.props.iconStyle || {color: this.state.color}}
+                    iconStyle={this.props.iconStyle}
                 >
                     {this.props.icon || <ColorIcon/>}
                 </IconButton>

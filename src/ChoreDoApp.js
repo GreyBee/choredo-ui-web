@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import LandingPage from './Component/Page/LandingPage';
-import Dashboard from './Component/Page/Dashboard';
+import LandingPage from './views/components/Page/LandingPage';
+import Dashboard from './views/components/Page/Dashboard';
 import {BrowserRouter as Router, Route} from 'react-router-dom'
 import {deepOrangeA400, deepPurple600} from 'material-ui/styles/colors';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -17,7 +17,7 @@ class ChoreDoApp extends Component {
             },
         });
 
-        let loggedIn = false;
+        let loggedIn = true;
 
         const route = loggedIn === true ?
             <Route path="/" component={Dashboard}/>
