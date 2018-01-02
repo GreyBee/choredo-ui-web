@@ -52,7 +52,7 @@ export default class ColorPickerButton extends React.Component {
         });
     };
 
-    handleChangeComplete = (color, event) => {
+    handleChangeComplete = (color) => {
         this.setState({color: color.hex});
         this.props.onChange(this.props.index, this.state.color);
         this.handleRequestClose();
