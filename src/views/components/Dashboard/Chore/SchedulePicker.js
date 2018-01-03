@@ -1,10 +1,10 @@
 import React from 'react';
-import {grey200, deepPurple600} from "material-ui/styles/colors";
+import {grey300, deepPurple600} from "material-ui/styles/colors";
 import {Avatar, IconButton} from "material-ui";
 import {Col, Row} from "react-flexbox-grid";
 
 
-const CustomScheduleToggle = (props) => {
+const SchedulePicker = (props) => {
     const {schedule, onClick} = props;
 
     return (
@@ -13,7 +13,7 @@ const CustomScheduleToggle = (props) => {
                 {schedule.map((item) => {
                     const [key, value] = item;
                     const avatarValue = key.charAt(0).toUpperCase();
-                    const color = value ? deepPurple600 : grey200;
+                    const color = value ? deepPurple600 : grey300;
 
                     return <IconButton  key={key} onClick={(e) => onClick(e, key)}>
                         <Avatar
@@ -29,5 +29,5 @@ const CustomScheduleToggle = (props) => {
     )
 };
 
-export default CustomScheduleToggle;
+export default SchedulePicker;
 
