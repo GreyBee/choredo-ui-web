@@ -3,6 +3,7 @@ import AppBar from 'material-ui/AppBar';
 import NavDrawer from '../NavDrawer';
 import {Route, Redirect} from 'react-router-dom'
 import Chores from './Dashboard/Chores';
+import Children from './Dashboard/Children';
 import {Grid, Row, Col} from 'react-flexbox-grid';
 
 
@@ -26,7 +27,7 @@ class Dashboard extends Component {
                         <Col md={10}>
                             <Route exact path="/" component={() => (<Redirect to="/schedule"/>)}/>
                             <Route exact={true} path="/schedule" component={() => (<div><h1>Schedule</h1></div>)}/>
-                            <Route exact={true} path="/children" component={() => (<div><h1>Children</h1></div>)}/>
+                            <Route exact={true} path="/children" component={Children}/>
                             <Route path="/chores" component={Chores}/>
                             <Route exact={true} path="/settings" component={() => (<div><h1>Settings</h1></div>)}/>
                             <Route exact={true} path="/account" component={() => (<div><h1>Account</h1></div>)}/>
