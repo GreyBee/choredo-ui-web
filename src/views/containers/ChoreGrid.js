@@ -9,14 +9,23 @@ import ChoreModal from "../components/Dashboard/Chore/ChoreModal";
 
 class ChoreGrid extends Component {
     render() {
-        const {chores = [], activeChore: { isEditing, activeChore }} = this.props;
+        const {
+            chores = [],
+            activeChore: { isEditing, activeChore },
+            editChore,
+            cancelChoreEdit,
+            addNewChore,
+            createChore,
+            updateChore
+        } = this.props;
+
         return (
             <div><GridList cellHeight={180} cols={5}>
                 <GridTile key={'new'} titleBackground="">
                     <FlatButton
                         style={{width: 224, height: 180}}
                         backgroundColor='grey'
-                        onClick={this.props.addNewChore}
+                        onClick={addNewChore}
                     >
                         <ContentAdd style={{color: 'white'}}/>
                     </FlatButton>
@@ -26,14 +35,16 @@ class ChoreGrid extends Component {
                         index={index}
                         key={chore.id || Math.random()}
                         chore={chore}
-                        onClick={(index, chore) => { this.props.editChore(index, chore) }}
+                        onClick={(index, chore) => { editChore(index, chore) }}
                     />
                 ))}
             </GridList>
                 <ChoreModal
                     open={ isEditing }
                     chore={activeChore}
-                    handleClose={this.props.cancelChoreEdit}
+                    handleClose={cancelChoreEdit}
+                    handleUpdate={updateChore}
+                    handleSave={createChore}
                 />
             </div>
         );
@@ -53,7 +64,8 @@ const mapDispatchToProps = dispatch => {
         addNewChore: () => dispatch(choreActions.addChore()),
         editChore: (index, chore) => dispatch(choreActions.editChore(index, chore)),
         cancelChoreEdit: () => dispatch(choreActions.cancelChoreEdit()),
-        updateChore: (index, name) => dispatch(choreActions.updateChore(index, name)),
+        updateChore: (index, chore) => dispatch(choreActions.updateChore(index, chore)),
+        createChore: (chore) => dispatch(choreActions.createChore(chore)),
     })
 };
 

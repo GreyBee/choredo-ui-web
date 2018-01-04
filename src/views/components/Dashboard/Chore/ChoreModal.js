@@ -15,31 +15,10 @@ export default class ChoreModal extends React.Component {
         this.state = {chore: {}}
     }
 
-    getDefaultState = () => (
-        this.state = {
-            chore: {
-                id: null,
-                name: null,
-                description: null,
-                value: 0,
-                frequency: 'daily',
-                customSchedule: {
-                    sunday: false,
-                    monday: false,
-                    tuesday: false,
-                    wednesday: false,
-                    thursday: false,
-                    friday: false,
-                    saturday: false,
-                }
-            }
-        }
-    );
-
     componentWillReceiveProps(props) {
         this.setState(
             {
-                chore: props.chore || this.getDefaultState()
+                chore: props.chore
             }
         );
     }
@@ -135,7 +114,10 @@ export default class ChoreModal extends React.Component {
             <RaisedButton
                 label="Save"
                 primary
-                onClick={(e, chore) => (chore.id ? handleUpdate(index, chore) : handleSave(chore))}
+                onClick={(e) => {
+                    chore.id ? handleUpdate(index, chore) : handleSave(chore);
+                    handleClose(e);
+                }}
                 style={{marginRight: 12}}
             />,
         ];
