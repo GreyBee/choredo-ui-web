@@ -21,7 +21,7 @@ export default ({child, index, handleChange, handleColorChange, handleAddRow}) =
                 value={child.name}
                 onChange={(e) => { handleChange(index, e)}}
             />
-            <ColorPickerButton child={child} index={index} onChange={handleColorChange}/>
+            <ColorPickerButton iconStyle={{color: child.color}} index={index} onChange={handleColorChange}/>
             {addBtn}
         </div>
     )
