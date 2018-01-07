@@ -7,7 +7,7 @@ export default ({title, component}) => (
         <Header title={title}/>
         <Grid>
             <Row>
-                <Col xs={12}>
+                <Col xs={12} style={{minHeight:800}}>
                     {component}
                 </Col>
             </Row>
