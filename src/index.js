@@ -7,25 +7,31 @@ import './index.css';
 import ChoreDoApp from './ChoreDoApp';
 import registerServiceWorker from './registerServiceWorker';
 import childReducer from './store/Children';
+import assignmentReducer, {expansionReducer} from './store/Assignments';
 import choreReducer, {activeChoreReducer} from './store/Chores';
 
 let store = createStore(
     combineReducers({
         children: childReducer,
         chores: choreReducer,
-        activeChore: activeChoreReducer
+        activeChore: activeChoreReducer,
+        assignments: assignmentReducer,
+        assignmentRowExpansionState: expansionReducer,
     }),
     {
         children: [
             {
+                id: 123,
                 name: "Lydia",
                 color: '#9900EF'
             },
             {
+                id: 234,
                 name: "Matthew",
                 color: "#FF6900"
             },
             {
+                id: 456,
                 name: "Shawn",
                 color: "#0693E3"
             }
@@ -33,19 +39,18 @@ let store = createStore(
         chores: [
             {
                 id: 123,
-                name: "Take out the trash",
+                name: "Trash",
                 description: "Trash trash trashity trash",
                 value: 100,
-                durationMinutes: 10,
                 frequency: 'daily',
                 customSchedule: {
-                    sunday: false,
-                    monday: false,
-                    tuesday: false,
-                    wednesday: false,
-                    thursday: false,
-                    friday: false,
-                    saturday: false,
+                    sunday: true,
+                    monday: true,
+                    tuesday: true,
+                    wednesday: true,
+                    thursday: true,
+                    friday: true,
+                    saturday: true,
                 }
             },
             {
@@ -76,12 +81,34 @@ let store = createStore(
                     sunday: false,
                     monday: false,
                     tuesday: false,
-                    wednesday: false,
+                    wednesday: true,
                     thursday: false,
                     friday: false,
                     saturday: false,
                 }
             }
+        ],
+        assignmentRowExpansionState: [
+            true,
+            false,
+            true,
+        ],
+        assignments: [
+            {
+                child: 123,
+                chore: 123,
+                day: 'monday'
+            },
+            {
+                child: 234,
+                chore: 456,
+                day: 'wednesday'
+            },
+            {
+                child: 456,
+                chore: 678,
+                day: 'wednesday'
+            },
         ],
         activeChore: {
             isEditing: false,
